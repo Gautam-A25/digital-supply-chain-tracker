@@ -32,10 +32,10 @@ public class RabbitMQConfig {
         return new TopicExchange(DEAD_LETTER_EXCHANGE);
     }
 
-    /** Use JSON serialization for all messages */
+    /** Use Spring's ObjectMapper so LocalDateTime serializes to standard ISO strings instead of arrays */
     @Bean
-    public Jackson2JsonMessageConverter messageConverter() {
-        return new Jackson2JsonMessageConverter();
+    public Jackson2JsonMessageConverter messageConverter(com.fasterxml.jackson.databind.ObjectMapper objectMapper) {
+        return new Jackson2JsonMessageConverter(objectMapper);
     }
 
     /** Configure RabbitTemplate to use JSON converter */

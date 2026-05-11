@@ -21,6 +21,8 @@ public interface ShipmentRepository extends JpaRepository<Shipment, Long> {
 
     // Overdue: expectedDelivery passed, not yet delivered or cancelled
     @Query("SELECT s FROM Shipment s WHERE s.expectedDelivery < :now " +
-           "AND s.currentStatus NOT IN ('DELIVERED', 'CANCELLED', 'DELAYED')")
+           "AND s.currentStatus NOT IN (com.digital.shipment.entity.enums.ShipmentStatus.DELIVERED, " +
+           "com.digital.shipment.entity.enums.ShipmentStatus.CANCELLED, " +
+           "com.digital.shipment.entity.enums.ShipmentStatus.DELAYED)")
     List<Shipment> findOverdueShipments(@Param("now") LocalDateTime now);
 }

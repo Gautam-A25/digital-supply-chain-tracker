@@ -34,6 +34,7 @@ public class ShipmentService {
     private final ItemFeignClient itemFeignClient;
     private final UserFeignClient userFeignClient;
     private final ShipmentEventPublisher eventPublisher;
+    private final org.springframework.data.redis.core.RedisTemplate<String, Object> redisTemplate;
 
     // ─────────────────────────────────────────────
     // CREATE
@@ -293,9 +294,10 @@ public class ShipmentService {
                 .orElseThrow(() -> new ResourceNotFoundException("Shipment not found with id: " + id));
     }
 
-    @CachePut(value = "shipmentStatus", key = "#shipmentId")
-    public String updateStatusCache(Long shipmentId, String status) {
-        return status;
+    public void updateStatusCache(Long shipmentId, String status) {
+        if (redisTemplate != null) {
+            redisTemplate.opsForValue().set("shipmentStatus::" + shipmentId, status, java.time.Duration.ofMinutes(10));
+        }
     }
 
     private void validateStatusTransition(ShipmentStatus current, ShipmentStatus next) {

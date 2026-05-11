@@ -4,12 +4,16 @@ server:
 spring:
   application:
     name: shipment-service
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
 
   # MySQL DataSource
   datasource:
-    url: jdbc:mysql://localhost:3306/shipment_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3307/shipment_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
     username: root
-    password: root
+    password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   # JPA / Hibernate
