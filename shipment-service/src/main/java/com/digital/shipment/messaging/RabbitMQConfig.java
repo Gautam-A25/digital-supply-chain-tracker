@@ -40,9 +40,9 @@ public class RabbitMQConfig {
 
     /** Configure RabbitTemplate to use JSON converter */
     @Bean
-    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
+    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory, Jackson2JsonMessageConverter messageConverter) {
         RabbitTemplate template = new RabbitTemplate(connectionFactory);
-        template.setMessageConverter(messageConverter());
+        template.setMessageConverter(messageConverter);
         return template;
     }
 }
