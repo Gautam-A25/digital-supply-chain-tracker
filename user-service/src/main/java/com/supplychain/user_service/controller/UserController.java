@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UserController {
 
+    // User CRUD APIs by Anirudh
+
     private final UserService userService;
 
     @GetMapping("/test")
