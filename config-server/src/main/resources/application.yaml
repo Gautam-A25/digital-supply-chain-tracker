@@ -9,4 +9,6 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/example/config-repo
+          uri: git@github.com:Gautam-A25/digital-supply-chain-config.git
+          clone-on-start: true
+          default-label: main
